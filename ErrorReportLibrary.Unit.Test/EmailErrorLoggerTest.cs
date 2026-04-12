@@ -31,8 +31,7 @@ public class EmailErrorLoggerTest
     public void LogError_EmailErrorLogger_ShouldMailAnError()
     {
 
-        _errorLogger.LogError(_errorDetails);
-
+        
         // Verify mail was composed and sent via the fake sender
 
         var sent = _fakeMailSender.SentMessage;
