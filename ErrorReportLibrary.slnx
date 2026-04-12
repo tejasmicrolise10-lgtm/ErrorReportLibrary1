@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="DemoConsumerApp/DemoConsumerApp.csproj" Id="2e14d164-1a36-408e-bd45-027eef17eb94" />
+  <Project Path="ErrorDumbLibrary/ErrorReportLibrary.csproj" />
+  <Project Path="ErrorReportLibrary.Unit.Test/ErrorReportLibrary.Unit.Test.csproj" />
+</Solution>
