@@ -15,7 +15,7 @@ namespace ErrorReportLibrary.Implementation
         private string FromEmail = "tejas.microlise10@gmail.com";
         private string ToEmail ;
         //private string UserName = "tejas.microlise10@gmail.com";
-        private string Password = "Antic@123";
+        private string Password = "";
 
 
         public EmailErrorLogger(string toEmail)

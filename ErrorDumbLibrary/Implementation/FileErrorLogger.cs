@@ -27,7 +27,7 @@ namespace ErrorReportLibrary.Implementation
             LogMessage.AppendLine($"Title{error.Title}");
             LogMessage.AppendLine($"Description{error.Description}");
             LogMessage.AppendLine($"Help URL{error.HelpUrl}");
-            Console.WriteLine(LogMessage.ToString());
+           
 
             File.AppendAllText(logFilePath,LogMessage.ToString());
         }
