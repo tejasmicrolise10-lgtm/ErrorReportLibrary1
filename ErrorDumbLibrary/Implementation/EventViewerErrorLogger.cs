@@ -4,36 +4,36 @@ using System.Text;
 using ErrorReportLibrary.Interface;
 using ErrorReportLibrary.Model;
 using System.Diagnostics;
-
+ 
 namespace ErrorReportLibrary.Implementation
 {
     public class EventViewerErrorLogger : IErrorLogger
     {
-        private string SourceName;
-        private string LogName ="Application";
+        private readonly IEventLogWrite _eventLogWriter;
+        private readonly string _sourceName;
+        private readonly string _logName = "Application";
 
-        public EventViewerErrorLogger(string SourceName)
+        public EventViewerErrorLogger(IEventLogWrite eventLogWriter, string sourceName)
         {
-            this.SourceName = SourceName;
-             
+            _eventLogWriter = eventLogWriter;
+            _sourceName = sourceName;
         }
 
         public void LogError(ErrorDetails error)
-        {
-            StringBuilder LogMessage = new StringBuilder();
-            LogMessage.AppendLine($"Error Code: {error.ErrorCode}");
-            LogMessage.AppendLine($"Title: {error.Title}");
-            LogMessage.AppendLine($"Description: {error.Description}");
-            LogMessage.AppendLine($"Help URL: {error.HelpUrl}");
+        { 
+            var message = new StringBuilder()
+                .AppendLine($"Error Code: {error.ErrorCode}")
+                .AppendLine($"Title: {error.Title}")
+                .AppendLine($"Description: {error.Description}")
+                .AppendLine($"Help URL: {error.HelpUrl}")
+                .ToString();
 
-            //Console.WriteLine(LogMessage.ToString());
-
-            if (!EventLog.SourceExists(SourceName))
+            if (!_eventLogWriter.SourceExists(_sourceName))
             {
-                EventLog.CreateEventSource(SourceName, LogName);
+                _eventLogWriter.CreateSource(_sourceName, _logName);
             }
 
-            EventLog.WriteEntry(SourceName, LogMessage.ToString(), EventLogEntryType.Error);
+            _eventLogWriter.Write(_sourceName, message, EventLogEntryType.Error);
         }
     }
 }

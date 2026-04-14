@@ -8,74 +8,40 @@ using System.Net.Mail;
 namespace ErrorReportLibrary.Implementation
 {
     public class EmailErrorLogger : IErrorLogger
+{
+    private readonly IMailSender _mailSender;
+    private readonly string _fromEmail;
+    private readonly string _toEmail;
+
+    public EmailErrorLogger(
+        string fromEmail,
+        string toEmail,
+        IMailSender mailSender)
     {
-        private readonly IMailSender _mailSender;
-        private string SmtpServer ="smtp.gmail.com";
-        private int SmtpPort = 587;
-        private string FromEmail = "tp1004project@gmail.com";
-        private string ToEmail ;
-        //private string UserName = "tejas.microlise10@gmail.com";
-        private string Password = "tyzl ntjk liho rtjl";
-
-
-        public EmailErrorLogger(string toEmail)
-        {
-            ToEmail = toEmail;
-        }
-
-        // Simple constructor for dependency injection of a mail sender (used in tests)
-        public EmailErrorLogger(string toEmail, IMailSender mailSender)
-        {
-            ToEmail = toEmail;
-            _mailSender = mailSender;
-        }
-        public EmailErrorLogger(string smtpServer, int smtpPort, string toEmail)
-        {
-            SmtpServer = smtpServer;
-            SmtpPort = smtpPort;
-            ToEmail = toEmail;
-        }
-
-
-        public EmailErrorLogger(string smtpServer, int smtpPort, string fromEmail, string password, string toEmail)
-        {
-            SmtpServer = smtpServer;
-            SmtpPort = smtpPort;
-            FromEmail = fromEmail;
-            Password = password;
-            ToEmail = toEmail;
-            //UserName = userName;
-        }
-        public void LogError(ErrorDetails error)
-        {
-            StringBuilder LogMessage = new StringBuilder();
-            LogMessage.AppendLine($"Error Code: {error.ErrorCode}");
-            LogMessage.AppendLine($"Title: {error.Title}");
-            LogMessage.AppendLine($"Description: {error.Description}");
-            LogMessage.AppendLine($"Help URL: {error.HelpUrl}");
-            //Console.WriteLine(LogMessage.ToString());
-            // Compose the message
-            var mail = new MailMessage(FromEmail, ToEmail)
-            {
-                Subject = $"Error Report: {error.Title}",
-                Body = LogMessage.ToString()
-            };
-
-            // If a mail sender is provided (e.g. a test fake), use it. Otherwise send via SmtpClient.
-            if (_mailSender != null)
-            {
-                _mailSender.Send(mail);
-                return;
-            }
-
-            // Default behavior: send using SmtpClient (keeps backwards compatibility).
-            var smtp = new SmtpClient(SmtpServer, SmtpPort)
-            {
-                Credentials = new System.Net.NetworkCredential(FromEmail, Password),
-                EnableSsl = true
-            };
-
-            smtp.Send(mail);
-        }
+        _fromEmail = fromEmail;
+        _toEmail = toEmail;
+        _mailSender = mailSender;
     }
+
+    public void LogError(ErrorDetails error)
+    {
+        if (error == null)
+            throw new ArgumentNullException(nameof(error));
+
+        var body = new StringBuilder()
+            .AppendLine($"Error Code: {error.ErrorCode}")
+            .AppendLine($"Title: {error.Title}")
+            .AppendLine($"Description: {error.Description}")
+            .AppendLine($"Help URL: {error.HelpUrl}")
+            .ToString();
+
+        var mail = new MailMessage(_fromEmail, _toEmail)
+        {
+            Subject = $"Error Report: {error.Title}",
+            Body = body
+        };
+
+        _mailSender.Send(mail);
+    }
+}
 }
