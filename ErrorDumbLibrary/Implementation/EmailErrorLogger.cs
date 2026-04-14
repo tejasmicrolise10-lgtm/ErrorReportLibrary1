@@ -34,7 +34,7 @@ namespace ErrorReportLibrary.Implementation
             {
                 Subject = $"Error Report: {error.Title}",
                 Body = error.FormatErrorMessage()
-            }
+            };  
 
             _mailSender.Send(mail);
         }
