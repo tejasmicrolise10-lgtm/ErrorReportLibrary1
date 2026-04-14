@@ -1,5 +1,4 @@
-﻿using System.Text;
-using ErrorReportLibrary.Interface;
+﻿using ErrorReportLibrary.Interface;
 using ErrorReportLibrary.Model;
 
 namespace ErrorReportLibrary.Implementation
@@ -21,15 +20,7 @@ namespace ErrorReportLibrary.Implementation
      
         public void LogError(ErrorDetails error)
         {
-            StringBuilder LogMessage =new StringBuilder();
-
-            LogMessage.AppendLine($"Error Code{error.ErrorCode}");
-            LogMessage.AppendLine($"Title{error.Title}");
-            LogMessage.AppendLine($"Description{error.Description}");
-            LogMessage.AppendLine($"Help URL{error.HelpUrl}");
-           
-
-            File.AppendAllText(logFilePath,LogMessage.ToString());
+            File.AppendAllText(logFilePath, error.FormatErrorMessage());
         }
     }
 }

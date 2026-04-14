@@ -20,20 +20,13 @@ namespace ErrorReportLibrary.Implementation
 
         public void LogError(ErrorDetails error)
         {
-            StringBuilder LogMessage = new StringBuilder();
-            LogMessage.AppendLine($"Error Code: {error.ErrorCode}");
-            LogMessage.AppendLine($"Title: {error.Title}");
-            LogMessage.AppendLine($"Description: {error.Description}");
-            LogMessage.AppendLine($"Help URL: {error.HelpUrl}");
-
-            //Console.WriteLine(LogMessage.ToString());
 
             if (!EventLog.SourceExists(SourceName))
             {
                 EventLog.CreateEventSource(SourceName, LogName);
             }
 
-            EventLog.WriteEntry(SourceName, LogMessage.ToString(), EventLogEntryType.Error);
+            EventLog.WriteEntry(SourceName,error.FormatErrorMessage(), EventLogEntryType.Error);
         }
     }
 }

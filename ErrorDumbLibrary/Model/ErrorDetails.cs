@@ -19,5 +19,15 @@ namespace ErrorReportLibrary.Model
             this.Description = Description;
             this.HelpUrl = HelpUrl;
         }
+
+        public string FormatErrorMessage()
+        {
+            StringBuilder message = new StringBuilder();
+            message.AppendLine($"Error Code: {ErrorCode}");
+            message.AppendLine($"Title: {Title}");
+            message.AppendLine($"Description: {Description}");
+            message.AppendLine($"Help URL: {HelpUrl}");
+            return message.ToString();
+        }
     }
 }
