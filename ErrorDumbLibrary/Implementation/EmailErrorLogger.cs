@@ -12,10 +12,10 @@ namespace ErrorReportLibrary.Implementation
         private readonly IMailSender _mailSender;
         private string SmtpServer ="smtp.gmail.com";
         private int SmtpPort = 587;
-        private string FromEmail = "tejas.microlise10@gmail.com";
+        private string FromEmail = "tp1004project@gmail.com";
         private string ToEmail ;
         //private string UserName = "tejas.microlise10@gmail.com";
-        private string Password = "";
+        private string Password = "tyzl ntjk liho rtjl";
 
 
         public EmailErrorLogger(string toEmail)
