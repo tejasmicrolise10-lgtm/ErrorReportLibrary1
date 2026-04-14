@@ -30,10 +30,9 @@ public class EmailErrorLoggerTest
     [Test]
     public void LogError_EmailErrorLogger_ShouldMailAnError()
     {
+        _errorLogger.LogError(_errorDetails);
 
-        
         // Verify mail was composed and sent via the fake sender
-
         var sent = _fakeMailSender.SentMessage;
         Assert.That(sent, Is.Not.Null);
         Assert.That(sent.Subject, Does.Contain("Index Out of Range Exception"));
