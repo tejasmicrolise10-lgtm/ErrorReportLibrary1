@@ -1,5 +1,4 @@
-﻿using System.Text;
-using ErrorReportLibrary.Interface;
+﻿using ErrorReportLibrary.Interface;
 using ErrorReportLibrary.Model;
 using System.IO;
 namespace ErrorReportLibrary.Implementation
