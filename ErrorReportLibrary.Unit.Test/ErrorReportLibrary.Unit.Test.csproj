@@ -27,7 +27,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ErrorDumbLibrary\ErrorReportLibrary.csproj" />
+    <ProjectReference Include="..\ErrorReportLibrary\ErrorReportLibrary.csproj" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,4 +1,4 @@
 <Solution>
-  <Project Path="ErrorDumbLibrary/ErrorReportLibrary.csproj" />
   <Project Path="ErrorReportLibrary.Unit.Test/ErrorReportLibrary.Unit.Test.csproj" />
+  <Project Path="ErrorReportLibrary/ErrorReportLibrary.csproj" />
 </Solution>
